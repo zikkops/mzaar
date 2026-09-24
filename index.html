@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BDF × Mzaar Idea Picker</title>
+<meta name="description" content="Pick the Beirut Duty Free × Mzaar partnership ideas you want to start with.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+  :root{
+    --bg:#F7F9FA; --paper:#FFFFFF; --ink:#2D3B4B; --deep:#16212B; --body:#3E4B5C; --muted:#6E7C88;
+    --line:#E4EBF1; --coral:#FF7860; --coral-soft:#FFF1ED; --mint:#59F6B5; --mint-ink:#1E9E77;
+    --sel-bg:#F3FBF7; --sel-line:#59F6B5; --shadow:0 10px 30px rgba(45,59,75,.10); --err:#C8412B;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#16212B; --paper:#1F2C38; --ink:#F2F5F7; --deep:#0F171E; --body:#D5DDE4; --muted:#9FB0BE;
+      --line:#31404E; --coral:#FF8A75; --coral-soft:#3A2A26; --mint:#59F6B5; --mint-ink:#59F6B5;
+      --sel-bg:#1E3A31; --sel-line:#59F6B5; --shadow:0 10px 30px rgba(0,0,0,.35); --err:#FF8A75; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#16212B; --paper:#1F2C38; --ink:#F2F5F7; --deep:#0F171E; --body:#D5DDE4; --muted:#9FB0BE;
+    --line:#31404E; --coral:#FF8A75; --coral-soft:#3A2A26; --mint:#59F6B5; --mint-ink:#59F6B5;
+    --sel-bg:#1E3A31; --sel-line:#59F6B5; --shadow:0 10px 30px rgba(0,0,0,.35); --err:#FF8A75; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:"Lato","Segoe UI",Helvetica,Arial,sans-serif;font-size:19px;line-height:1.6;padding-inline:20px;padding-block:0 140px}
+  .wrap{max-width:860px;margin:0 auto}
+  h1,h2,h3,.kicker,.num,.btn,.tag,.bar strong{font-family:"Barlow","Arial Narrow",Arial,sans-serif}
+  h1{font-size:clamp(34px,5.5vw,50px);line-height:1.05;font-weight:800;text-transform:uppercase;color:var(--ink);margin:.25em 0 .35em;text-wrap:balance;letter-spacing:-.01em}
+  h2{font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--ink);margin:0 0 .5em}
+  h3{font-size:27px;font-weight:700;color:var(--ink);margin:0;line-height:1.2;text-wrap:balance}
+  .kicker{font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--coral)}
+  p{margin:0 0 1em}
+  .lead{font-size:22px;line-height:1.5;color:var(--body);max-width:40ch}
+  header{padding-block:36px 24px;border-bottom:1px solid var(--line)}
+  .logo{width:190px;height:auto;display:block;margin-bottom:28px;background:#16212B;padding:12px 14px;border-radius:8px}
+  .how{display:flex;flex-wrap:wrap;gap:14px 40px;padding-block:22px;border-bottom:1px solid var(--line);font-size:18px}
+  .how div{display:flex;gap:12px;align-items:flex-start}
+  .how .num{font-size:22px;font-weight:800;color:var(--coral);line-height:1.3}
+  section.ideas{padding-block:10px}
+  .idea{display:grid;grid-template-columns:64px 1fr;gap:6px 22px;padding-block:34px;border-bottom:1px solid var(--line);position:relative}
+  .idea .num{grid-row:1/span 5;font-size:44px;font-weight:800;color:var(--muted);line-height:1;padding-top:4px;font-variant-numeric:tabular-nums}
+  .idea.on .num{color:var(--mint-ink)}
+  .tag{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1.5px solid var(--line);color:var(--muted);margin-bottom:8px}
+  .tag.agreed{border-color:var(--mint);color:var(--mint-ink)}
+  .tag.request{border-color:var(--coral);color:var(--coral)}
+  .idea p{margin:8px 0 0;max-width:62ch}
+  .gives{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:17px}
+  .gives b{display:block;font-family:"Barlow",Arial,sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .pick{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+  .btn{cursor:pointer;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-size:18px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:14px 22px;border-radius:12px;display:inline-flex;gap:12px;align-items:center;min-height:56px;transition:background .15s,border-color .15s,color .15s}
+  .btn:hover{border-color:var(--coral);color:var(--coral)}
+  .btn:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+  .btn:disabled{cursor:default;opacity:.75}
+  .btn.primary{background:var(--coral);border-color:var(--coral);color:#fff}
+  .btn.primary:hover:not(:disabled){background:#ff8f7a;border-color:#ff8f7a;color:#fff}
+  .btn .box{width:24px;height:24px;border:2px solid currentColor;border-radius:6px;display:inline-grid;place-items:center;font-size:16px}
+  .idea.on .btn{background:var(--mint);border-color:var(--mint);color:var(--deep)}
+  .idea.on .btn .box{background:var(--deep);border-color:var(--deep);color:var(--mint)}
+  .idea.on{background:linear-gradient(90deg,var(--sel-bg),transparent 70%);margin-inline:-20px;padding-inline:20px}
+  .note{margin-top:14px}
+  .note label{font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;font-family:"Barlow",Arial,sans-serif}
+  textarea,input[type=text]{width:100%;max-width:62ch;font:inherit;font-size:18px;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;resize:vertical}
+  textarea:focus,input:focus{outline:3px solid var(--coral);outline-offset:2px;border-color:var(--coral)}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--deep);color:#fff;padding:14px 20px;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 30px rgba(0,0,0,.25);z-index:5}
+  .bar .in{max-width:860px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+  .bar strong{font-size:22px;font-weight:700;letter-spacing:.02em}
+  .bar .btn{background:var(--coral);border-color:var(--coral);color:#fff}
+  .bar .btn:hover{background:#ff8f7a;border-color:#ff8f7a;color:#fff}
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 26px 30px;box-shadow:var(--shadow);margin-block:30px 20px;scroll-margin-top:20px}
+  .panel[hidden]{display:none}
+  .panel h2{margin-bottom:.3em}
+  .who{display:grid;gap:14px;margin-block:14px 18px}
+  .who label{display:block;margin-bottom:6px;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:"Barlow",Arial,sans-serif}
+  .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+  pre.summary{white-space:pre-wrap;font:inherit;font-size:17px;line-height:1.55;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 16px;color:var(--body)}
+  .send{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+  .contact{font-size:18px;color:var(--body);margin-top:14px}
+  .contact code{font-family:inherit;font-weight:700;color:var(--ink);user-select:all}
+  .toast{font-family:"Barlow",Arial,sans-serif;font-weight:700;color:var(--mint-ink);letter-spacing:.06em;text-transform:uppercase;font-size:15px;margin:14px 0 0;min-height:1.5em}
+  .toast.err{color:var(--err)}
+  footer{margin-top:40px;padding-block:24px;border-top:1px solid var(--line);color:var(--muted);font-size:15px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;letter-spacing:.06em;text-transform:uppercase;font-family:"Barlow",Arial,sans-serif}
+  .timeline{margin:0;padding:0;list-style:none}
+  .timeline li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding-block:12px;border-bottom:1px solid var(--line);font-size:18px}
+  .timeline li b{font-family:"Barlow",Arial,sans-serif;color:var(--ink);font-weight:700;letter-spacing:.02em}
+
+  .visual{margin:14px 0 4px;max-width:620px;aspect-ratio:3/2;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,var(--paper),var(--line));border:1px solid var(--line);position:relative}
+  .visual img{width:100%;height:100%;object-fit:cover;display:block}
+  .visual .ph{display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--muted);font-family:"Barlow",Arial,sans-serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:20px}
+  .visual .ph svg{width:120px;height:120px;stroke:var(--coral);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .visual.nophoto img{display:none}
+  .visual.nophoto .ph{display:flex}
+  @media (max-width:560px){
+    .idea{grid-template-columns:44px 1fr;gap:6px 14px}
+    .idea .num{font-size:32px}
+    h3{font-size:23px}
+    .gives{grid-template-columns:1fr}
+    .timeline li{grid-template-columns:1fr;gap:2px}
+    body{font-size:18px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <img class="logo" src="logo.webp" alt="VIPMINDS. Bold wins.">
+    <div class="kicker">Beirut Duty Free × Mzaar Ski Resort · Winter 2026-27</div>
+    <h1>Pick the ideas you want to start with</h1>
+    <p class="lead">Eight partnership ideas came out of the Mzaar meetings. Tick the ones you like, add a comment if you want, then send us your selection. It takes five minutes.</p>
+  </header>
+
+  <div class="how">
+    <div><span class="num">1</span><span>Read the eight ideas below.</span></div>
+    <div><span class="num">2</span><span>Tap <b>Select this idea</b> on the ones you want.</span></div>
+    <div><span class="num">3</span><span>Press <b>Send my selection</b> at the bottom.</span></div>
+  </div>
+
+  <section class="ideas" id="ideas"></section>
+
+  <section class="panel" id="timeline">
+    <div class="kicker">Timing</div>
+    <h2>Why we need your answer now</h2>
+    <p>Mzaar opens early-bird sales in October and November. That is when travellers, and the diaspora flying home for Christmas, are the easiest to reach.</p>
+    <ul class="timeline">
+      <li><b>End of September</b><span>Your selection and sign-off on the barter terms.</span></li>
+      <li><b>October</b><span>Early-bird offer live in the loyalty app. Mzaar in the first magazine edition. BDF content on the Mzaar screens.</span></li>
+      <li><b>November – December</b><span>Season content, ski pass draw, BDF on the Mzaar ticket, artist chairlifts revealed at opening.</span></li>
+      <li><b>March</b><span>We read the numbers together and decide next season.</span></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="sendpanel" hidden>
+    <div class="kicker">Almost done</div>
+    <h2>Send your selection</h2>
+    <div class="who">
+      <div><label for="who-name">Your name</label><input type="text" id="who-name" placeholder="e.g. Lynn" autocomplete="name"></div>
+      <div><label for="who-note">Anything else you want to tell us? (optional)</label><textarea id="who-note" rows="3" placeholder="Priorities, doubts, anything we should know."></textarea></div>
+      <div class="hp" aria-hidden="true"><label for="botcheck">Leave empty</label><input type="checkbox" id="botcheck" tabindex="-1" autocomplete="off"></div>
+    </div>
+    <pre class="summary" id="summary"></pre>
+    <div class="send">
+      <button class="btn primary" id="send" type="button">Send to VIPMINDS</button>
+      <button class="btn" id="copy" type="button">Copy the text</button>
+    </div>
+    <p class="toast" id="toast" role="status" aria-live="polite"></p>
+    <p class="contact">Prefer another way? Paste it to VIPMINDS on WhatsApp <code>+961 3 373882</code>, or send us a screenshot of this page.</p>
+  </section>
+
+  <footer>
+    <span>VIPMINDS × Beirut Duty Free</span>
+    <span>Beirut · Las Vegas · Beverly Hills</span>
+  </footer>
+</div>
+
+<div class="bar">
+  <div class="in">
+    <strong id="count">No ideas selected yet</strong>
+    <button class="btn" id="go" type="button">Send my selection</button>
+  </div>
+</div>
+
+<script>
+// Web3Forms access key. Created at https://web3forms.com for norka@vipminds.com.
+// This key is designed to be public: it can only deliver to that inbox.
+const WEB3FORMS_KEY = "YOUR-WEB3FORMS-ACCESS-KEY";
+
+const ICONS = {"01": "<svg viewBox='0 0 64 64'><rect x='14' y='6' width='24' height='44' rx='4'/><path d='M22 12h8M26 44h0'/><rect x='34' y='30' width='24' height='16' rx='2'/><path d='M46 30v16M38 38h4M50 38h4'/><path d='M18 58c6-3 12-3 18 0'/></svg>", "02": "<svg viewBox='0 0 64 64'><rect x='6' y='14' width='52' height='36' rx='3'/><path d='M6 22h52M6 42h52M14 14v8M24 14v8M34 14v8M44 14v8M14 42v8M24 42v8M34 42v8M44 42v8'/><path d='M20 36l8-8 6 6 4-3 6 5'/></svg>", "03": "<svg viewBox='0 0 64 64'><rect x='6' y='10' width='52' height='32' rx='3'/><path d='M32 42v10M22 52h20'/><path d='M14 30l8-8 6 6 5-4 9 8'/></svg>", "04": "<svg viewBox='0 0 64 64'><path d='M32 14c-6-4-14-5-24-4v38c10-1 18 0 24 4 6-4 14-5 24-4V10c-10-1-18 0-24 4z'/><path d='M32 14v38'/><path d='M14 22h10M14 30h10M40 20h10M40 28l4-4 6 6'/></svg>", "05": "<svg viewBox='0 0 64 64'><rect x='10' y='26' width='44' height='30' rx='3'/><path d='M10 36h44M32 26v30'/><path d='M32 26c-6-2-12-6-10-12 3-5 9 2 10 8 1-6 7-13 10-8 2 6-4 10-10 12'/><path d='M6 20l3-3M58 20l-3-3M32 6v4'/></svg>", "06": "<svg viewBox='0 0 64 64'><path d='M8 20a4 4 0 0 1 4-4h40a4 4 0 0 1 4 4v8a4 4 0 0 0 0 8v8a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4v-8a4 4 0 0 0 0-8z'/><path d='M40 16v32' stroke-dasharray='3 3'/><rect x='16' y='26' width='6' height='6'/><rect x='26' y='26' width='6' height='6'/><rect x='16' y='36' width='6' height='6'/><path d='M28 38h4'/></svg>", "07": "<svg viewBox='0 0 64 64'><path d='M4 18L60 8'/><path d='M20 15v10M44 11v10'/><rect x='12' y='25' width='16' height='12' rx='2'/><rect x='36' y='21' width='16' height='12' rx='2'/><path d='M12 37h16M36 33h16'/><path d='M4 56l14-14 10 10 8-8 8 8 16-16'/></svg>", "08": "<svg viewBox='0 0 64 64'><path d='M14 22h36l-3 30H17z'/><path d='M24 22a8 8 0 0 1 16 0'/><path d='M40 40l8 4-4 2-2 4z'/></svg>"};
+const IDEAS = [
+  {n:"01", alt:"Skier holding a pass and the BDF app", tag:"agreed", tagText:"Mzaar agreed · trial", title:"Early-bird ski passes for BDF members",
+   text:"Members of the BDF loyalty app get a Mzaar early-bird offer before everyone else, as a promo code inside the app. Alongside it, a small Mzaar corner inside the BDF store sells early-bird passes to anyone travelling in October and November, including the diaspora buying for the Christmas trip home.",
+   mzaar:"A capped early-bird offer for app members, and staff or passes for the in-store corner.",
+   bdf:"The offer inside the app before launch, and a selling point in front of every departing traveller."},
+  {n:"02", alt:"Mzaar in the 1990s", tag:"bdf", tagText:"BDF idea", title:"'90s Mzaar, then and now",
+   text:"One video of 30 to 45 seconds. Mzaar in the 1990s, the skiers, the lifts, the cars in the parking, then a cut to today's BDF. Endline: \"Between home and away. The only constant.\" Posted together with Mzaar.",
+   mzaar:"Access to its 1990s photo and video archive, with permission to use it.",
+   bdf:"The film, the modern half shot on a BDF shoot day, and co-posting with Mzaar tagged."},
+  {n:"03", alt:"BDF on the screens at Mzaar", tag:"request", tagText:"Mzaar request", title:"BDF on the Mzaar screens",
+   text:"A rotating playlist of BDF content on the resort's own screens all season: the brand film, seasonal offers and a QR code that takes skiers straight to the loyalty app. Refreshed every month.",
+   mzaar:"Slots on its screens at ticket offices, lodges and lift stations.",
+   bdf:"A screen edit of the brand film plus monthly offer cards, ready to play."},
+  {n:"04", alt:"Mzaar page in the BDF magazine", tag:"request", tagText:"Mzaar request", title:"Mzaar in the BDF magazine",
+   text:"Mzaar joins the new BDF Quarterly Magazine as one of its first advertisers, with a page for ski passes or the hotel. Every traveller who leaves with a BDF bag leaves with Mzaar in hand.",
+   mzaar:"The page content and an offer for readers, paid or as part of the barter.",
+   bdf:"A page or spread in the first winter edition, in every shopping bag."},
+  {n:"05", alt:"Winners with their ski passes", tag:"request", tagText:"Mzaar request", title:"Ski pass draw, with a student track",
+   text:"Mzaar provides a batch of ski passes. BDF runs a draw among shoppers and app members through the season, with part of the batch reserved for students.",
+   mzaar:"The ski passes for the draw.",
+   bdf:"The draw mechanic, the social content and the winners' announcements."},
+  {n:"06", alt:"BDF on the Mzaar ski ticket", tag:"request", tagText:"Mzaar request", title:"BDF on the Mzaar ticket",
+   text:"A BDF strip on the Mzaar ski ticket, printed or digital, with a QR code to join the loyalty app and a small welcome voucher. Skiers carry the ticket all day and often keep it.",
+   mzaar:"Space on the ticket and its printing calendar.",
+   bdf:"The artwork, one clear offer and the welcome voucher."},
+  {n:"07", alt:"Chairlifts painted by artists", tag:"request", tagText:"Mzaar request", title:"Chairlifts designed by Lebanese artists",
+   text:"A series of Mzaar télésièges painted by Lebanese artists, each chair a different piece, co-branded BDF × Mzaar. The ride up becomes the content: every skier sits in the artwork, photographs it and posts it.",
+   mzaar:"The chairlifts, production and safety approval.",
+   bdf:"The artists, the reveal film and the artist story series. Funding to agree."},
+  {n:"08", alt:"Collecting a duty free order", tag:"explore", tagText:"To explore", title:"Click and Collect link",
+   text:"A possible link between BDF's Click and Collect and Mzaar, for example a Mzaar promo code on order confirmations, or an early-bird pass as an add-on to a duty free order. Raised as a possibility, not yet defined.",
+   mzaar:"Its e-commerce team, once the idea is defined.",
+   bdf:"The same, plus the Click and Collect journey to plug into."},
+];
+
+const $ = id => document.getElementById(id);
+const state = { picked:{}, notes:{}, name:"" };
+try { Object.assign(state, JSON.parse(localStorage.getItem("mzaar-picker")||"{}")); } catch(e){}
+function save(){ try{ localStorage.setItem("mzaar-picker", JSON.stringify(state)); }catch(e){} }
+
+const root = $("ideas");
+IDEAS.forEach(i => {
+  const el = document.createElement("article");
+  el.className = "idea" + (state.picked[i.n] ? " on" : "");
+  el.id = "idea-" + i.n;
+  el.innerHTML = `
+    <div class="num">${i.n}</div>
+    <div><span class="tag ${i.tag}">${i.tagText}</span><h3>${i.title}</h3></div>
+    <figure class="visual"><img src="img/${i.n}.jpg" alt="${i.alt}" onerror="this.parentNode.classList.add('nophoto')"><div class="ph">${ICONS[i.n]}<span>${i.alt}</span></div></figure>
+    <p>${i.text}</p>
+    <div class="gives"><div><b>Mzaar brings</b>${i.mzaar}</div><div><b>BDF brings</b>${i.bdf}</div></div>
+    <div>
+      <div class="pick"><button class="btn" type="button" aria-pressed="${!!state.picked[i.n]}" data-n="${i.n}"><span class="box">${state.picked[i.n]?"✓":""}</span><span class="lbl">${state.picked[i.n]?"Selected":"Select this idea"}</span></button></div>
+      <div class="note"><label for="note-${i.n}">Your comment (optional)</label><textarea id="note-${i.n}" rows="2" placeholder="A thought, a condition, a question…"></textarea></div>
+    </div>`;
+  root.appendChild(el);
+  el.querySelector("textarea").value = state.notes[i.n] || "";
+});
+$("who-name").value = state.name || "";
+
+let sent = false;
+function edited(){ if(sent){ sent=false; $("send").disabled=false; $("send").textContent="Send to VIPMINDS"; toast(""); } refresh(); }
+
+root.addEventListener("click", e => {
+  const b = e.target.closest("button[data-n]"); if(!b) return;
+  const n = b.dataset.n; state.picked[n] = !state.picked[n]; save();
+  $("idea-"+n).classList.toggle("on", !!state.picked[n]);
+  b.setAttribute("aria-pressed", !!state.picked[n]);
+  b.querySelector(".box").textContent = state.picked[n] ? "✓" : "";
+  b.querySelector(".lbl").textContent = state.picked[n] ? "Selected" : "Select this idea";
+  edited();
+});
+root.addEventListener("input", e => {
+  if(e.target.tagName==="TEXTAREA"){ state.notes[e.target.id.replace("note-","")] = e.target.value; save(); edited(); }
+});
+$("who-name").addEventListener("input", e => { state.name = e.target.value; save(); edited(); });
+$("who-note").addEventListener("input", edited);
+
+function selected(){ return IDEAS.filter(i => state.picked[i.n]); }
+function summaryText(){
+  const s = selected(); const who = $("who-name").value.trim();
+  const extra = $("who-note").value.trim();
+  let t = `BDF × Mzaar – idea selection${who?" from "+who:""}\n`;
+  t += s.length ? `Selected ${s.length} of ${IDEAS.length} ideas:\n` : "No ideas selected yet.\n";
+  s.forEach(i => { t += `\n${i.n} ${i.title}`; if((state.notes[i.n]||"").trim()) t += `\n   Comment: ${state.notes[i.n].trim()}`; });
+  const skipped = IDEAS.filter(i => !state.picked[i.n] && (state.notes[i.n]||"").trim());
+  if(skipped.length){ t += "\n\nComments on ideas not selected:"; skipped.forEach(i => t += `\n${i.n} ${i.title}: ${state.notes[i.n].trim()}`); }
+  if(extra) t += `\n\nOther notes: ${extra}`;
+  return t;
+}
+function refresh(){
+  const k = selected().length;
+  $("count").textContent = k===0 ? "No ideas selected yet" : k===1 ? "1 idea selected" : `${k} ideas selected`;
+  $("summary").textContent = summaryText();
+}
+function toast(msg, err){ const t = $("toast"); t.textContent = msg; t.classList.toggle("err", !!err); }
+
+$("go").addEventListener("click", () => {
+  const p = $("sendpanel"); p.hidden = false; refresh();
+  p.scrollIntoView({behavior:"smooth", block:"start"});
+  setTimeout(()=>$("who-name").focus({preventScroll:true}), 500);
+});
+
+$("send").addEventListener("click", async () => {
+  const name = $("who-name").value.trim();
+  if(!name){ toast("Please add your name first.", true); $("who-name").focus(); return; }
+  if(!selected().length && !$("who-note").value.trim() && !Object.values(state.notes).some(v => (v||"").trim())){
+    toast("Select at least one idea or leave a comment.", true); return;
+  }
+  const btn = $("send"); btn.disabled = true; btn.textContent = "Sending…"; toast("");
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: `BDF × Mzaar selection from ${name} (${selected().length} of ${IDEAS.length} ideas)`,
+        from_name: "BDF × Mzaar Picker",
+        name,
+        message: summaryText(),
+        botcheck: $("botcheck").checked,
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok || !data.success) throw new Error(data.message || "Could not send right now.");
+    sent = true; btn.textContent = "Sent ✓";
+    toast("Sent. Thank you, VIPMINDS has your selection.");
+  } catch(e) {
+    btn.disabled = false; btn.textContent = "Send to VIPMINDS";
+    toast("Could not send right now. Copy the text above and send it on WhatsApp instead.", true);
+  }
+});
+
+$("copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(summaryText()); toast("Copied. Now paste it in WhatsApp or an email."); }
+  catch(e){ const r = document.createRange(); r.selectNodeContents($("summary")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Text selected. Press copy on your device."); }
+});
+refresh();
+</script>
+
+</body>
+</html>

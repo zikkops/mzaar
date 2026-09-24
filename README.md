@@ -1,15 +1,18 @@
 # BDF × Mzaar Idea Picker
 
-This Next.js app replaces the static HTML picker. When someone presses **Send to VIPMINDS**, their selection is emailed to `MAIL_TO` through [Resend](https://resend.com).
+A static HTML page. When someone presses **Send to VIPMINDS**, their selection is emailed to norka@vipminds.com through [Web3Forms](https://web3forms.com).
+
+## Files
+
+- `index.html`: the whole page (styles and script inline)
+- `logo.webp`: VIPMINDS logo
+- `img/01.jpg` … `img/08.jpg`: optional idea photos. If a photo is missing, the card shows its line icon.
 
 ## Setup
 
-1. `npm install`
-2. Copy `.env.example` to `.env.local` and fill in:
-   - `RESEND_API_KEY`: your Resend API key
-   - `MAIL_TO`: the address that receives selections (default `norka@vipminds.com`)
-   - `MAIL_FROM`: the sender address. Its domain must be verified in Resend.
-3. Put the logo at `public/logo.png`. For idea photos, add `public/img/01.jpg` … `08.jpg`. If a photo is missing, the card shows its line icon.
-4. `npm run dev` (local) or `npm run build && npm start`.
+1. At https://web3forms.com, create an access key using **norka@vipminds.com**. The key is emailed to that inbox.
+2. In `index.html`, replace `YOUR-WEB3FORMS-ACCESS-KEY` with that key. The key is meant to be public; it can only deliver to that inbox.
 
-On Vercel, set the same three variables under Project → Settings → Environment Variables.
+## Deploy (Hostinger)
+
+Upload `index.html`, `logo.webp` and the `img/` folder into the subdomain's folder, e.g. `public_html/mzar/` for `mzar.vipmindslb.com`. You can use hPanel → File Manager, or Git deployment from this repo.
