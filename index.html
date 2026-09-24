@@ -147,11 +147,11 @@
     </div>
     <pre class="summary" id="summary"></pre>
     <div class="send">
-      <button class="btn primary" id="send" type="button">Send to VIPMINDS</button>
-      <button class="btn" id="copy" type="button">Copy the text</button>
+      <button class="btn primary" id="send" type="button">Send by email</button>
+      <a class="btn" id="wa" href="https://wa.me/9613373882" target="_blank" rel="noopener">Send on WhatsApp</a>
     </div>
     <p class="toast" id="toast" role="status" aria-live="polite"></p>
-    <p class="contact">Prefer another way? Paste it to VIPMINDS on WhatsApp <code>+961 3 373882</code>, or send us a screenshot of this page.</p>
+    <p class="contact">Send it by email or WhatsApp, whichever you prefer. WhatsApp opens a chat with VIPMINDS (<code>+961 3 373882</code>) with your selection already written in.</p>
   </section>
 
   <footer>
@@ -230,7 +230,7 @@ IDEAS.forEach(i => {
 $("who-name").value = state.name || "";
 
 let sent = false;
-function edited(){ if(sent){ sent=false; $("send").disabled=false; $("send").textContent="Send to VIPMINDS"; toast(""); } refresh(); }
+function edited(){ if(sent){ sent=false; $("send").disabled=false; $("send").textContent="Send by email"; toast(""); } refresh(); }
 
 root.addEventListener("click", e => {
   const b = e.target.closest("button[data-n]"); if(!b) return;
@@ -263,6 +263,7 @@ function refresh(){
   const k = selected().length;
   $("count").textContent = k===0 ? "No ideas selected yet" : k===1 ? "1 idea selected" : `${k} ideas selected`;
   $("summary").textContent = summaryText();
+  $("wa").href = "https://wa.me/9613373882?text=" + encodeURIComponent(summaryText());
 }
 function toast(msg, err){ const t = $("toast"); t.textContent = msg; t.classList.toggle("err", !!err); }
 
@@ -295,14 +296,14 @@ $("send").addEventListener("click", async () => {
     sent = true; btn.textContent = "Sent ✓";
     toast("Sent. Thank you, VIPMINDS has your selection.");
   } catch(e) {
-    btn.disabled = false; btn.textContent = "Send to VIPMINDS";
-    toast("Could not send right now. Copy the text above and send it on WhatsApp instead.", true);
+    btn.disabled = false; btn.textContent = "Send by email";
+    toast("Could not send the email right now. Use Send on WhatsApp instead.", true);
   }
 });
 
-$("copy").addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText(summaryText()); toast("Copied. Now paste it in WhatsApp or an email."); }
-  catch(e){ const r = document.createRange(); r.selectNodeContents($("summary")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Text selected. Press copy on your device."); }
+$("wa").addEventListener("click", e => {
+  if(!$("who-name").value.trim()){ e.preventDefault(); toast("Please add your name first.", true); $("who-name").focus(); return; }
+  refresh();
 });
 refresh();
 </script>
